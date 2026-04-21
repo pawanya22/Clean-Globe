@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean Globe | Official Site</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --smooth-easing: cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-speed: 0.8s;
+            --card-width: 200px;
+            --card-height: 280px;
+            --card-radius: 30px;
+            --accent: #4ade80;
+            --blue-gradient: linear-gradient(135deg, #0072ff, #00c6ff);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #000; color: #fff; overflow-x: hidden; scroll-behavior: smooth; }
+
+        /* Glass Nav Bar */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 10%; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000; transition: 0.4s;
+        }
+
+        header.scrolled { background: rgba(255, 255, 255, 0.85); border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+        header.scrolled .logo, header.scrolled nav a { color: #000; }
+
+        .logo { font-weight: 900; font-size: 22px; letter-spacing: 2px; }
+        header nav a { color: #fff; text-decoration: none; margin-left: 30px; font-size: 14px; opacity: 0.7; transition: 0.3s; }
+        header nav a:hover { opacity: 1; color: var(--accent); }
+
+        /* --- HERO SLIDER --- */
+        .hero { width: 100vw; height: 100vh; position: relative; background: #000; }
+        .hero .list .item { width: 100%; height: 100%; position: absolute; inset: 0; }
+        .hero .list .item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4); }
+
+        .hero .list .item:nth-child(n + 2) {
+            position: absolute; top: 52%; left: calc(50% + (var(--idx) * 230px));
+            width: var(--card-width); height: var(--card-height); z-index: 10;
+            border-radius: var(--card-radius); box-shadow: 0 20px 40px rgba(0,0,0,0.5); transition: 0.5s;
+        }
+
+        .hero .list .item:nth-child(2) { --idx: 0; z-index: 20; }
+        .hero .list .item:nth-child(3) { --idx: 1; z-index: 15; }
+        .hero .list .item:nth-child(4) { --idx: 2; z-index: 10; }
+
+        .content { position: absolute; top: 45%; left: 10%; width: 500px; transform: translateY(-50%); z-index: 100; opacity: 0; pointer-events: none; }
+        .hero .list .item:nth-child(1) .content { opacity: 1; pointer-events: auto; }
+        .content .topic { color: var(--accent); font-weight: 700; letter-spacing: 5px; margin-bottom: 10px; font-size: 13px; }
+        .content .title { font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+        .content .des { font-size: 14px; color: #ccc; margin-bottom: 30px; line-height: 1.6; }
+        .content .btn { padding: 15px 35px; background: #fff; border: none; color: #000; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
+
+        .hero.next .list .item:nth-child(2) { animation: zoomToBg var(--transition-speed) var(--smooth-easing) forwards; }
+        @keyframes zoomToBg {
+            from { top: 52%; left: 50%; width: var(--card-width); height: var(--card-height); border-radius: var(--card-radius); }
+            to { top: 0; left: 0; width: 100%; height: 100%; border-radius: 0; }
+        }
+
+        .arrows { position: absolute; bottom: 10%; left: 10%; display: flex; gap: 15px; z-index: 200; }
+        .arrows button { width: 55px; height: 55px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: #fff; font-size: 20px; cursor: pointer; transition: 0.3s; }
+        .arrows button:hover { background: #fff; color: #000; }
+
+        /* --- SHARED WHITE BACKGROUND SECTION --- */
+        .white-bg-container { background-color: #fff; color: #000; position: relative; overflow: hidden; padding-bottom: 50px; }
+
+        .blob { position: absolute; width: 400px; height: 400px; background: var(--blue-gradient); filter: blur(100px); opacity: 0.1; border-radius: 50%; z-index: 1; animation: fly 15s infinite alternate ease-in-out; }
+        .blob-1 { top: 10%; left: -5%; }
+        .blob-2 { bottom: 10%; right: -5%; animation-delay: -5s; }
+        @keyframes fly { 0% { transform: translate(0, 0); } 100% { transform: translate(100px, 100px) scale(1.1); } }
+
+        /* Welcome Video Section */
+        .welcome-section { padding: 120px 10% 80px; text-align: center; position: relative; z-index: 2; }
+        .welcome-section h2 { font-size: 3rem; font-weight: 900; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
+        .welcome-section h2 span { color: #0072ff; }
+        .video-wrapper { width: 100%; max-width: 800px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.15); border: 8px solid #fff; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        /* --- CREATIVE ABOUT US SECTION --- */
+        .about-section { 
+            padding: 140px 10%; 
+            display: grid; 
+            grid-template-columns: 1fr 1.2fr; 
+            gap: 80px; 
+            align-items: center; 
+            position: relative; 
+            z-index: 2;
+            /* Background image added here */
+            background-image: linear-gradient(to right, rgba(255,255,255,0.9) 30%, rgba(255,255,255,0.2)), url('https://images.unsplash.com/photo-1745970649913-2edb9dca4f74?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .about-left { display: flex; justify-content: center; align-items: center; position: relative; }
+        .license-logo {
+            width: 350px; height: 350px; padding: 30px; background: #fff; 
+            border-radius: 50%; box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+            border: 2px solid rgba(0,114,255,0.1); animation: float 6s ease-in-out infinite;
+            z-index: 5;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+
+        /* Glassmorphism Text Block */
+        .about-right { 
+            display: flex; 
+            flex-direction: column; 
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 60px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+        }
+        
+        .typing-container {
+            font-size: 13px; font-weight: 700; color: #0072ff; letter-spacing: 3px;
+            margin-bottom: 25px; min-height: 20px; text-transform: uppercase;
+        }
+        .cursor { display: inline-block; width: 3px; background-color: #0072ff; margin-left: 5px; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .about-right h3 { font-size: 2.2rem; font-weight: 900; line-height: 1.2; margin-bottom: 25px; color: #111; }
+        .about-right p { font-size: 16px; line-height: 1.9; color: #444; margin-bottom: 35px; }
+        
+        .learn-more-btn {
+            align-self: flex-start; padding: 16px 45px; background: #000; color: #fff;
+            text-decoration: none; font-weight: 700; font-size: 13px; letter-spacing: 2px;
+            border-radius: 50px; transition: 0.4s;
+        }
+        .learn-more-btn:hover { background: #0072ff; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,114,255,0.3); }
+
+        /* --- BENTO GRID SECTION --- */
+        .bento-section { padding: 120px 10%; background-color: #fff; position: relative; z-index: 2; }
+        .bento-header { text-align: center; max-width: 900px; margin: 0 auto 80px; }
+        .bento-header h2 { font-size: 3rem; font-weight: 900; margin-bottom: 25px; color: #222; text-transform: uppercase; }
+        .bento-header p { font-size: 17px; line-height: 1.7; color: #666; }
+
+        .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 380px); gap: 15px; }
+        .bento-item { border-radius: 30px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding: 45px; }
+        .bento-item.image-item { padding: 0; }
+        .bento-item.image-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        .bento-white { background-color: #fcfcfc; color: #000; border: 1px solid #f0f0f0; }
+        .bento-dark { background-color: #1a1e26; color: #fff; }
+        .bento-blue { background-color: #6d7d8b; color: #fff; }
+
+        .bento-item h4 { font-size: 22px; font-weight: 600; margin-bottom: 20px; }
+        .bento-item p { font-size: 13px; line-height: 1.7; opacity: 0.8; margin-bottom: 25px; }
+        .bento-link { font-size: 11px; font-weight: 700; text-decoration: underline; color: inherit; text-transform: capitalize; }
+
+        @media (max-width: 1200px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+            .bento-item { height: 400px; }
+            .about-section { grid-template-columns: 1fr; padding: 80px 5%; text-align: center; background-attachment: scroll; }
+            .about-right { align-items: center; padding: 40px 20px; }
+            .learn-more-btn { align-self: center; }
+            .license-logo { width: 250px; height: 250px; }
+        }
+
+        @media (max-width: 768px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-header h2 { font-size: 2.2rem; }
+            .welcome-section h2 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <div class="logo">CLEAN GLOBE</div>
+        <nav>
+            <a href="#">Services</a>
+            <a href="#">Verification</a>
+            <a href="#">Training</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Hero Slider -->
+    <section class="hero">
+        <div class="list">
+            <div class="item">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1920">
+                <div class="content">
+                    <p class="topic">01 / GLOBAL</p>
+                    <h1 class="title">CLEAN GLOBE</h1>
+                    <p class="des">A Global Certification, Verification and Training Provider. We facilitate international excellence through rigorous quality standards.</p>
+                    <a href="#" class="btn">LEARN MORE</a>
+                </div>
+            </div>
+            <div class="item">
+                <img src="https://images.unsplash.com/photo-1594904351111-a072f80b1a71?q=80&w=1920">
+                <div class="content">
+                    <p class="topic">02 / HARVEST</p>
+                    <h1 class="title">THE 2nd LARGEST</h1>
+                    <p class="des">Organic cotton in 2018/19 increased 31% on the previous season to achieve the second-largest harvest on record.</p>
+                    <a href="#" class="btn">LEARN MORE</a>
+                </div>
+            </div>
+            <div class="item">
+                <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1920">
+                <div class="content">
+                    <p class="topic">03 / BEYOND</p>
+                    <h1 class="title">GRS RECYCLED</h1>
+                    <p class="des">Global Recycled Standard (GRS) assures comprehensive sustainability with robust criteria on chemical compliance.</p>
+                    <a href="#" class="btn">LEARN MORE</a>
+                </div>
+            </div>
+            <div class="item">
+                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1920">
+                <div class="content">
+                    <p class="topic">04 / ENERGY</p>
+                    <h1 class="title">EMPATHY IS ENERGY</h1>
+                    <p class="des">When there is strength and inspiration, wonderful things can be achieved for the planet and future generations.</p>
+                    <a href="#" class="btn">LEARN MORE</a>
+                </div>
+            </div>
+        </div>
+        <div class="arrows">
+            <button id="prev">←</button>
+            <button id="next">→</button>
+        </div>
+    </section>
+
+    <!-- Combined White Container -->
+    <div class="white-bg-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+
+        <!-- Video Section -->
+        <section class="welcome-section">
+            <div class="container">
+                <h2>WELCOME TO <span>CLEAN GLOBE</span></h2>
+                <div class="video-wrapper">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Clean Globe Overview" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CREATIVE ABOUT US SECTION WITH BACKGROUND IMAGE -->
+        <section class="about-section">
+            <div class="about-left">
+                <img src="https://cdn-icons-png.flaticon.com/512/3663/3663363.png" alt="License Logo" class="license-logo">
+            </div>
+            <div class="about-right">
+                <div class="typing-container">
+                    <span id="typing-text"></span><span class="cursor">|</span>
+                </div>
+                <h3>THE OPTIMUM PHASE OF CERTIFICATION SERVICE</h3>
+                <p>
+                    It’s a great honor for CLEAN GLOBE to be among the elite Textile Exchange members. We are licensed as a certification body for all supply chain programs including CCS, OCS, RCS, GRS, RDS-supply chain, and RAF(RWS, RMS, RAS).
+                </p>
+                <a href="#" class="learn-more-btn">DISCOVER MORE</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Bento Grid Section -->
+    <section class="bento-section">
+        <div class="bento-header">
+            <h2>Why Choose <span style="color: #0072ff;">Us</span></h2>
+            <p>Over a decade of experience in the conventional certification, we learned Do’s and Don’ts, and how to create the most appropriate hassle-free service lead with integrity.</p>
+        </div>
+
+        <div class="bento-grid">
+            <div class="bento-item image-item">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800" alt="Industry Solutions">
+            </div>
+            <div class="bento-item bento-white">
+                <h4>Providing Industry<br>Solutions</h4>
+                <p>Supply chain complexity is increasing every day. We direct manufacturers and brands towards the most suitable path to achieve optimum benefits.</p>
+                <a href="#" class="bento-link">More Information</a>
+            </div>
+
+            <div class="bento-item image-item">
+                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800" alt="Linear Process">
+            </div>
+            <div class="bento-item bento-dark">
+                <h4>Linear<br>Process</h4>
+                <p>Innovative ideas are fed to our infrastructures, which helps keep the process up to date and hassle-free.</p>
+                <a href="#" class="bento-link">More Information</a>
+            </div>
+
+            <div class="bento-item bento-blue">
+                <h4>Innovative<br>Approach</h4>
+                <p>We continuously study lessons learned, eliminating unnecessary steps to ensure a smooth certification core under accreditation norms.</p>
+                <a href="#" class="bento-link">More Information</a>
+            </div>
+            <div class="bento-item image-item">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800" alt="Innovative approach">
+            </div>
+
+            <div class="bento-item bento-white">
+                <h4>Responsiveness</h4>
+                <p>We respectfully welcome your inquiries. Our commitment is to respond adequately and timely—we don’t let you remain with doubts.</p>
+                <a href="#" class="bento-link">More Information</a>
+            </div>
+            <div class="bento-item image-item">
+                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800" alt="Responsiveness">
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const nextBtn = document.querySelector('#next');
+        const prevBtn = document.querySelector('#prev');
+        const hero = document.querySelector('.hero');
+        const list = document.querySelector('.list');
+        const header = document.querySelector('#header');
+
+        let isAnimating = false;
+
+        function moveSlider(direction) {
+            if (isAnimating) return;
+            isAnimating = true;
+            const items = document.querySelectorAll('.item');
+            if (direction === 'next') {
+                hero.classList.add('next');
+                setTimeout(() => {
+                    list.appendChild(items[0]);
+                    hero.classList.remove('next');
+                    isAnimating = false;
+                }, 800); 
+            } else {
+                list.prepend(items[items.length - 1]);
+                isAnimating = false;
+            }
+        }
+
+        nextBtn.onclick = () => moveSlider('next');
+        prevBtn.onclick = () => moveSlider('prev');
+
+        window.onscroll = function() {
+            if (window.scrollY > 100) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        };
+
+        const textToType = "CLEAN GLOBE: A PROUD MEMBER OF TEXTILE EXCHANGE.";
+        const typingSpan = document.getElementById('typing-text');
+        let index = 0;
+
+        function type() {
+            if (index < textToType.length) {
+                typingSpan.textContent += textToType.charAt(index);
+                index++;
+                setTimeout(type, 80);
+            } else {
+                setTimeout(() => {
+                    typingSpan.textContent = "";
+                    index = 0;
+                    type();
+                }, 4000);
+            }
+        }
+
+        window.onload = type;
+
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.item:nth-child(2)')) moveSlider('next');
+        });
+    </script>
+</body>
+</html>
