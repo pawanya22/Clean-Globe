@@ -3,23 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clean Globe | Official Site</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <title>Clean Globe | Kinetic Experience</title>
+    
+    <!-- Fonts (added luxury nature font) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@700;800&family=Poppins:wght@300;400;700;900&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* ========== RESET & VARIABLES (BLUE/WHITE/BLACK ONLY) ========== */
         :root {
             --smooth-easing: cubic-bezier(0.4, 0, 0.2, 1);
             --transition-speed: 0.8s;
-            --card-width: 200px;
-            --card-height: 280px;
-            --card-radius: 30px;
-            --accent: #4ade80;
+            --card-width: 220px;
+            --card-height: 300px;
+            --card-radius: 20px;
+            --accent: #0072ff;           /* Blue accent — no green */
             --blue-gradient: linear-gradient(135deg, #0072ff, #00c6ff);
+            --dark-bg: #0a0f0f;
+            --pure-white: #ffffff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: #000; color: #fff; overflow-x: hidden; scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #000; color: #fff; overflow-x: hidden; scroll-behavior: smooth; font-family: 'Poppins', sans-serif; }
 
-        /* Glass Nav Bar */
+        /* ========== HEADER (KEPT STRUCTURE, ADJUSTED COLORS) ========== */
         header {
             position: fixed; top: 0; left: 0; width: 100%; height: 80px;
             display: flex; justify-content: space-between; align-items: center;
@@ -27,348 +35,535 @@
             -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1000; transition: 0.4s;
         }
-
-        header.scrolled { background: rgba(255, 255, 255, 0.85); border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+        header.scrolled { background: rgba(255, 255, 255, 0.9); border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
         header.scrolled .logo, header.scrolled nav a { color: #000; }
-
-        .logo { font-weight: 900; font-size: 22px; letter-spacing: 2px; }
+        .logo { font-weight: 900; font-size: 22px; letter-spacing: 2px; color: #fff; }
         header nav a { color: #fff; text-decoration: none; margin-left: 30px; font-size: 14px; opacity: 0.7; transition: 0.3s; }
         header nav a:hover { opacity: 1; color: var(--accent); }
 
-        /* --- HERO SLIDER --- */
-        .hero { width: 100vw; height: 100vh; position: relative; background: #000; }
-        .hero .list .item { width: 100%; height: 100%; position: absolute; inset: 0; }
-        .hero .list .item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4); }
-
-        .hero .list .item:nth-child(n + 2) {
-            position: absolute; top: 52%; left: calc(50% + (var(--idx) * 230px));
-            width: var(--card-width); height: var(--card-height); z-index: 10;
-            border-radius: var(--card-radius); box-shadow: 0 20px 40px rgba(0,0,0,0.5); transition: 0.5s;
+        .top-bar {
+            position: absolute; top: 0; left: 0; width: 100%; height: 45px;
+            background: #f5f5f5; display: flex; justify-content: space-between; align-items: center;
+            padding: 0 10%; font-size: 13px; color: #222; transition: 0.5s; z-index: 1001;
+            border-bottom: 1px solid #ddd;
         }
+        .top-left, .top-right { display: flex; align-items: center; gap: 25px; }
+        .top-info { display: flex; align-items: center; gap: 8px; }
+        .top-info .icon { font-size: 16px; opacity: 0.7; }
+        .social-icons { display: flex; gap: 15px; border-right: 1px solid #ddd; padding-right: 15px; }
+        .social-icons img { width: 16px; height: 16px; filter: grayscale(1); opacity: 0.7; transition: 0.3s; }
+        .social-icons img:hover { filter: grayscale(0); opacity: 1; }
+        .flags { display: flex; gap: 8px; }
+        .flags img { width: 24px; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 
-        .hero .list .item:nth-child(2) { --idx: 0; z-index: 20; }
-        .hero .list .item:nth-child(3) { --idx: 1; z-index: 15; }
-        .hero .list .item:nth-child(4) { --idx: 2; z-index: 10; }
+        header { height: 125px; flex-direction: column; justify-content: flex-end; padding-bottom: 20px; }
+        header.scrolled { height: 80px; padding-bottom: 0; justify-content: center; }
+        header.hide-top-bar .top-bar { opacity: 0; transform: translateY(-100%); pointer-events: none; }
 
-        .content { position: absolute; top: 45%; left: 10%; width: 500px; transform: translateY(-50%); z-index: 100; opacity: 0; pointer-events: none; }
-        .hero .list .item:nth-child(1) .content { opacity: 1; pointer-events: auto; }
-        .content .topic { color: var(--accent); font-weight: 700; letter-spacing: 5px; margin-bottom: 10px; font-size: 13px; }
-        .content .title { font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
-        .content .des { font-size: 14px; color: #ccc; margin-bottom: 30px; line-height: 1.6; }
-        .content .btn { padding: 15px 35px; background: #fff; border: none; color: #000; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
+        .nav-row { width: 100%; display: flex; align-items: center; position: relative; }
+        .logo { position: absolute; left: 0; color: #fff; }
+        header.scrolled .logo { color: #000; }
+        .center-nav { margin: 0 auto; display: flex; gap: 30px; }
+        .center-nav a { color: inherit; text-decoration: none; font-size: 14px; opacity: 0.7; transition: 0.3s; }
+        .center-nav a:hover { opacity: 1; color: var(--accent); }
 
-        .hero.next .list .item:nth-child(2) { animation: zoomToBg var(--transition-speed) var(--smooth-easing) forwards; }
-        @keyframes zoomToBg {
-            from { top: 52%; left: 50%; width: var(--card-width); height: var(--card-height); border-radius: var(--card-radius); }
-            to { top: 0; left: 0; width: 100%; height: 100%; border-radius: 0; }
-        }
-
-        .arrows { position: absolute; bottom: 10%; left: 10%; display: flex; gap: 15px; z-index: 200; }
-        .arrows button { width: 55px; height: 55px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: #fff; font-size: 20px; cursor: pointer; transition: 0.3s; }
-        .arrows button:hover { background: #fff; color: #000; }
-
-        /* --- SHARED WHITE BACKGROUND SECTION --- */
+        /* ========== WHITE BACKGROUND CONTAINER ========== */
         .white-bg-container { background-color: #fff; color: #000; position: relative; overflow: hidden; padding-bottom: 50px; }
-
         .blob { position: absolute; width: 400px; height: 400px; background: var(--blue-gradient); filter: blur(100px); opacity: 0.1; border-radius: 50%; z-index: 1; animation: fly 15s infinite alternate ease-in-out; }
         .blob-1 { top: 10%; left: -5%; }
         .blob-2 { bottom: 10%; right: -5%; animation-delay: -5s; }
         @keyframes fly { 0% { transform: translate(0, 0); } 100% { transform: translate(100px, 100px) scale(1.1); } }
 
-        /* Welcome Video Section */
-        .welcome-section { padding: 120px 10% 80px; text-align: center; position: relative; z-index: 2; }
-        .welcome-section h2 { font-size: 3rem; font-weight: 900; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
-        .welcome-section h2 span { color: #0072ff; }
-        .video-wrapper { width: 100%; max-width: 800px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.15); border: 8px solid #fff; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-
-        /* --- CREATIVE ABOUT US SECTION --- */
+        /* ========== ABOUT SECTION (green removed) ========== */
         .about-section { 
-            padding: 140px 10%; 
-            display: grid; 
-            grid-template-columns: 1fr 1.2fr; 
-            gap: 80px; 
-            align-items: center; 
-            position: relative; 
-            z-index: 2;
-            /* Background image added here */
+            padding: 140px 10%; display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; 
+            position: relative; z-index: 2;
             background-image: linear-gradient(to right, rgba(255,255,255,0.9) 30%, rgba(255,255,255,0.2)), url('https://images.unsplash.com/photo-1745970649913-2edb9dca4f74?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background-size: cover; background-position: center; background-attachment: fixed;
         }
-        
-        .about-left { display: flex; justify-content: center; align-items: center; position: relative; }
+        .about-left { display: flex; justify-content: center; align-items: center; }
         .license-logo {
-            width: 350px; height: 350px; padding: 30px; background: #fff; 
-            border-radius: 50%; box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-            border: 2px solid rgba(0,114,255,0.1); animation: float 6s ease-in-out infinite;
-            z-index: 5;
+            width: 350px; height: 350px; padding: 30px; background: #fff; border-radius: 50%;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1); border: 2px solid rgba(0,114,255,0.2);
+            animation: float 6s ease-in-out infinite;
         }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
-
-        /* Glassmorphism Text Block */
+        @keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-30px)} }
         .about-right { 
-            display: flex; 
-            flex-direction: column; 
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 60px;
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            display: flex; flex-direction: column; background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            padding: 60px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.4);
             box-shadow: 0 20px 50px rgba(0,0,0,0.05);
         }
-        
-        .typing-container {
-            font-size: 13px; font-weight: 700; color: #0072ff; letter-spacing: 3px;
-            margin-bottom: 25px; min-height: 20px; text-transform: uppercase;
-        }
+        .typing-container { font-size: 13px; font-weight: 700; color: #0072ff; letter-spacing: 3px; margin-bottom: 25px; text-transform: uppercase; }
         .cursor { display: inline-block; width: 3px; background-color: #0072ff; margin-left: 5px; animation: blink 1s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
+        @keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
         .about-right h3 { font-size: 2.2rem; font-weight: 900; line-height: 1.2; margin-bottom: 25px; color: #111; }
-        .about-right p { font-size: 16px; line-height: 1.9; color: #444; margin-bottom: 35px; }
-        
+        .about-right p { font-size: 16px; line-height: 1.9; color: #333; margin-bottom: 35px; }
         .learn-more-btn {
             align-self: flex-start; padding: 16px 45px; background: #000; color: #fff;
             text-decoration: none; font-weight: 700; font-size: 13px; letter-spacing: 2px;
-            border-radius: 50px; transition: 0.4s;
+            border-radius: 50px; transition: 0.4s; border: none;
         }
         .learn-more-btn:hover { background: #0072ff; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,114,255,0.3); }
 
-        /* --- BENTO GRID SECTION --- */
+        /* ========== BENTO SECTION (BLUE ACCENT) ========== */
         .bento-section { padding: 120px 10%; background-color: #fff; position: relative; z-index: 2; }
         .bento-header { text-align: center; max-width: 900px; margin: 0 auto 80px; }
-        .bento-header h2 { font-size: 3rem; font-weight: 900; margin-bottom: 25px; color: #222; text-transform: uppercase; }
-        .bento-header p { font-size: 17px; line-height: 1.7; color: #666; }
-
+        .bento-header h2 { font-size: 3rem; font-weight: 900; margin-bottom: 25px; color: #111; text-transform: uppercase; }
+        .bento-header p { font-size: 17px; line-height: 1.7; color: #444; }
         .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 380px); gap: 15px; }
         .bento-item { border-radius: 30px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding: 45px; }
         .bento-item.image-item { padding: 0; }
-        .bento-item.image-item img { width: 100%; height: 100%; object-fit: cover; }
-
+        .bento-item.image-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .bento-item.image-item:hover img { transform: scale(1.05); }
         .bento-white { background-color: #fcfcfc; color: #000; border: 1px solid #f0f0f0; }
         .bento-dark { background-color: #1a1e26; color: #fff; }
-        .bento-blue { background-color: #6d7d8b; color: #fff; }
-
+        .bento-blue { background-color: #1e3a5f; color: #fff; }  /* deep blue instead of greenish */
         .bento-item h4 { font-size: 22px; font-weight: 600; margin-bottom: 20px; }
         .bento-item p { font-size: 13px; line-height: 1.7; opacity: 0.8; margin-bottom: 25px; }
         .bento-link { font-size: 11px; font-weight: 700; text-decoration: underline; color: inherit; text-transform: capitalize; }
+        .bento-link:hover { opacity: 0.7; }
 
-        @media (max-width: 1200px) {
-            .bento-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
-            .bento-item { height: 400px; }
-            .about-section { grid-template-columns: 1fr; padding: 80px 5%; text-align: center; background-attachment: scroll; }
-            .about-right { align-items: center; padding: 40px 20px; }
-            .learn-more-btn { align-self: center; }
-            .license-logo { width: 250px; height: 250px; }
+        /* ========== WHAT WE OFFER (green → blue) ========== */
+        .offer-section { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 60px 0; text-align: center; position: relative; overflow: hidden; background: #fff; }
+        .offer-head { margin-bottom: 30px; padding: 0 10%; }
+        .offer-head span { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; }
+        .offer-head h2 { font-size: 2.5rem; margin: 10px 0; color: #000; }
+        .offer-head p { font-size: 13px; color: #444; }
+        .offer-container { width: 80%; margin: 0 auto; }
+        .offer-main-img { width: 100%; height: 320px; object-fit: cover; border-radius: 25px; }
+        .offer-cards-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 90%; margin: -60px auto 0; position: relative; z-index: 5; }
+        .offer-card { background: #fff; color: #000; padding: 25px 15px; border-radius: 20px; display: flex; align-items: flex-start; text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transition: 0.3s; }
+        .offer-card:hover { transform: translateY(-10px); }
+        .offer-card .icon-box { width: 45px; height: 45px; min-width: 45px; background: #e6f0ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; }
+        .offer-card .icon-box img { width: 24px; opacity: 0.8; }
+        .offer-card-text h4 { font-size: 18px; margin-bottom: 10px; font-weight: 700; }
+        .offer-card-text p { font-size: 12px; line-height: 1.6; color: #555; }
+
+        /* ========== CERTIFICATIONS SECTION (FULL HEIGHT, BLUE THEME) ========== */
+        .certifications-section {
+            min-height: 100vh;                 /* fit screen height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 5%;
+            background-color: #ffffff;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
         }
+        .cert-label { display: flex; align-items: center; justify-content: center; gap: 15px; color: #0072ff; font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; }
+        .cert-label hr { width: 40px; border: 0; border-top: 1px solid #ccc; }
+        .certifications-section h2 { font-size: 3.5rem; color: #0a2351; font-weight: 800; margin-bottom: 20px; }
+        .certifications-section .sub-text { max-width: 800px; margin: 0 auto 40px; color: #555; line-height: 1.6; font-size: 15px; }
+        .cert-tabs-wrapper { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
+        .tab-btn {
+            display: flex; align-items: center; gap: 12px; padding: 12px 25px; border-radius: 50px;
+            border: 1px solid #ddd; background: #fff; color: #333; font-weight: 600; font-size: 14px;
+            cursor: pointer; transition: 0.3s;
+        }
+        .tab-btn.active { background: #0072ff; color: #fff; border-color: #0072ff; box-shadow: 0 10px 20px rgba(0,114,255,0.2); }
+        .nav-arrow { width: 45px; height: 45px; border-radius: 50%; border: 1px solid #ddd; background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .cert-main-card {
+            background: linear-gradient(120deg, #f0f7ff 0%, #ffffff 50%, #eef3fc 100%);
+            border-radius: 30px; padding: 50px 40px; display: flex; gap: 20px; max-width: 1350px; margin: 0 auto;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.03);
+        }
+        .cert-column { flex: 1; display: flex; justify-content: center; align-items: center; }
+        .cert-item-content { display: flex; align-items: center; gap: 40px; text-align: left; }
+        .vertical-divider { width: 1px; background: rgba(0,0,0,0.08); align-self: stretch; border-style: dashed; }
+        .logo-circle { width: 260px; height: 260px; min-width: 260px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 40px rgba(0,0,0,0.04); padding: 45px; border: 8px solid rgba(255,255,255,0.8); }
+        .logo-circle img { width: 100%; object-fit: contain; }
+        .scope-box h4 { color: #0072ff; font-size: 13px; letter-spacing: 1.5px; margin-bottom: 20px; text-transform: uppercase; font-weight: 700; position: relative; }
+        .scope-box h4::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 30px; height: 2px; background: #0072ff; }
+        .scope-item { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; color: #333; font-size: 14px; font-weight: 500; }
+        .scope-icon { width: 34px; height: 34px; border-radius: 50%; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background: #fff; }
 
+        /* ========== CTA SECTION (CENTERED, SHORTER, CREATIVE) ========== */
+        .cta-wrapper { padding: 50px 5%; background: #fff; perspective: 1000px; }
+        .unique-cta-card {
+            background: linear-gradient(135deg, #0a2351 0%, #0072ff 100%);
+            border-radius: 50px; 
+            padding: 60px 40px; 
+            color: #fff; 
+            position: relative; 
+            overflow: hidden;
+            display: flex; 
+            flex-direction: column;      /* stack for centering */
+            align-items: center; 
+            text-align: center;
+            box-shadow: 0 30px 50px rgba(0, 114, 255, 0.2);
+            max-width: 1100px;
+            margin: 0 auto;
+            transition: transform 0.3s;
+        }
+        .unique-cta-card:hover { transform: scale(1.01); }
+        .cta-visual-blobs { position: absolute; top: 0; right: 0; width: 100%; height: 100%; background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.15) 0%, transparent 60%); pointer-events: none; }
+        .cta-text-side { max-width: 750px; z-index: 2; }
+        .cta-tag { background: rgba(255,255,255,0.15); backdrop-filter: blur(5px); padding: 8px 25px; border-radius: 50px; font-size: 12px; font-weight: 700; letter-spacing: 2px; display: inline-block; margin-bottom: 25px; }
+        .cta-text-side h2 { font-size: 3.2rem; line-height: 1.1; margin-bottom: 20px; font-weight: 900; }
+        .cta-text-side h2 span { color: #b5d8ff; }  /* soft blue-white */
+        .cta-description { font-size: 18px; opacity: 0.9; line-height: 1.6; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .cta-benefits-list { display: flex; gap: 40px; justify-content: center; margin-bottom: 40px; }
+        .benefit-item { display: flex; flex-direction: column; }
+        .benefit-item strong { font-size: 24px; color: #c6e0ff; }
+        .benefit-item span { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
+        .cta-actions { display: flex; gap: 25px; align-items: center; justify-content: center; }
+        .btn-apply { background: #fff; color: #000; padding: 18px 50px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 15px; transition: 0.4s; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .btn-apply:hover { transform: scale(1.05); background: #e0edff; }
+        .btn-learn-link { color: #fff; text-decoration: none; font-size: 14px; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 2px; transition: 0.3s; }
+
+        /* ========== FOOTER (BLACK + BLUE GRADIENT TOUCH) ========== */
+        .modern-footer { padding: 40px 5% 60px; background: #0a0c0f; }  /* black background */
+        .footer-island { 
+            background: #111316; 
+            border: 1px solid #1e2a3a; 
+            border-radius: 50px; 
+            padding: 70px 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-island::before {
+            content: ''; position: absolute; top: -20%; left: -10%; width: 60%; height: 140%;
+            background: radial-gradient(circle at 30% 20%, #0072ff20, transparent 70%);
+            pointer-events: none; z-index: 0;
+        }
+        .footer-main-grid { display: grid; grid-template-columns: 1.5fr 1fr 1.2fr 1fr; gap: 60px; margin-bottom: 70px; position: relative; z-index: 2; }
+        .footer-brand .logo { color: #fff; font-size: 28px; position: static; margin-bottom: 15px; }
+        .footer-brand p { color: #b0c7db; font-size: 14px; line-height: 1.8; margin: 25px 0; }
+        .newsletter-pill { background: #1e242c; border: 1px solid #2e3a48; border-radius: 100px; padding: 6px 6px 6px 20px; display: flex; align-items: center; }
+        .newsletter-pill input { background: transparent; border: none; outline: none; flex: 1; font-size: 14px; color: #fff; }
+        .newsletter-pill input::placeholder { color: #9aaec2; }
+        .newsletter-pill button { background: #0072ff; color: #fff; border: none; padding: 12px 25px; border-radius: 100px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .newsletter-pill button:hover { background: #1e88e5; }
+        .footer-col h4 { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: #a0bbd0; margin-bottom: 30px; }
+        .footer-links-list { list-style: none; }
+        .footer-links-list li { margin-bottom: 15px; }
+        .footer-links-list a { text-decoration: none; color: #d0e2ff; font-size: 15px; font-weight: 400; transition: 0.2s; }
+        .footer-links-list a:hover { color: #fff; }
+        .news-card { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #2a3743; }
+        .news-card .date { font-size: 11px; font-weight: 700; color: #5f9eff; margin-bottom: 8px; display: block; }
+        .news-card a { font-size: 14px; font-weight: 500; color: #e0edff; text-decoration: none; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 30px; border-top: 1px solid #2a3743; position: relative; z-index: 2; }
+        .footer-bottom p { font-size: 13px; color: #a0b8d0; }
+        .legal-links { display: flex; gap: 30px; }
+        .legal-links a { font-size: 13px; color: #b8cee7; text-decoration: none; }
+
+        /* ========== HERO (KINETIC) - FONT CHANGED TO LUXURY NATURE ========== */
+        .kinetic-hero-wrapper { position: relative; width: 100%; height: 100vh; margin-top: 0; background-color: #050807; overflow: hidden; }
+        #particle-canvas { position: absolute; inset: 0; z-index: 8; pointer-events: none; }
+        .slider-container { position: relative; width: 100%; height: 100%; }
+        .slide { position: absolute; inset: 0; pointer-events: none; z-index: 1; display: flex; align-items: flex-start; padding-top: 280px; }
+        .slide.active { pointer-events: auto; z-index: 5; }
+        .bg-grid-wrap { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(4, 1fr); pointer-events: none; }
+        .grid-tile { position: relative; overflow: hidden; opacity: 0; transform: scale(1.5); transition: opacity 1.2s cubic-bezier(0.85,0,0.15,1), transform 1.2s; }
+        .grid-tile-inner { position: absolute; top:0; left:0; width: 100vw; height: 100vh; background-size: cover; background-position: center; }
+        .slide-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(5,8,7,0.9) 0%, rgba(5,8,7,0.3) 100%); opacity: 0; transition: opacity 1s; z-index: 2; }
+        .slide:nth-child(1) .grid-tile-inner { background-image: url('https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=1920&auto=format&fit=crop'); }
+        .slide:nth-child(2) .grid-tile-inner { background-image: url('https://images.unsplash.com/photo-1590736969955-71cc94801759?q=80&w=1920&auto=format&fit=crop'); }
+        .slide:nth-child(3) .grid-tile-inner { background-image: url('https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1920&auto=format&fit=crop'); }
+        .slide:nth-child(4) .grid-tile-inner { background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1920&auto=format&fit=crop'); }
+        .slide.active .grid-tile { opacity:1; transform:scale(1); }
+        .slide.active .slide-overlay { opacity:1; transition-delay:0.8s; }
+        .content-kinetic { position: relative; z-index: 10; width: 100%; padding: 0 10vw; max-width: 1600px; font-family: 'Inter', sans-serif; }
+        .kinetic-mask { display: block; overflow: hidden; margin-bottom: 25px; }
+        /* NEW LUXURY NATURE FONT */
+        .title-kinetic {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: clamp(2.8rem, 5vw, 5rem);
+            line-height: 1.0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transform: translateY(110%);
+            transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+            color: #fff;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .desc-kinetic { font-size: clamp(1.1rem, 1.6vw, 1.5rem); font-weight: 300; line-height: 1.6; max-width: 650px; color: rgba(255,255,255,0.8); margin-bottom: 50px; transform: translateY(50px); opacity: 0; transition: transform 1s, opacity 1s; }
+        .btn-wrap { overflow: hidden; display: inline-block; }
+        .btn-kinetic { display: inline-flex; align-items: center; gap: 20px; padding: 22px 50px; background: rgba(255,255,255,0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; color: #fff; text-decoration: none; font-size: 0.9rem; letter-spacing: 3px; font-weight: 500; text-transform: uppercase; transform: translateY(100%); transition: transform 1s, background 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .btn-kinetic:hover { background: #0072ff; border-color: #0072ff; color: #fff; }
+        .btn-icon span { background: #fff; }
+        .btn-kinetic:hover .btn-icon span { background: #fff; }
+        .slide.active .title-kinetic { transform: translateY(0); transition-delay:0.6s; }
+        .slide.active .desc-kinetic { transform: translateY(0); opacity:1; transition-delay:0.8s; }
+        .slide.active .btn-kinetic { transform: translateY(0); transition-delay:1s; }
+        .controls-kinetic { position: absolute; bottom: 60px; right: 10vw; z-index: 20; display: flex; align-items: center; gap: 20px; }
+        .nav-btn-kinetic { width: 60px; height: 60px; border-radius: 50%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; }
+        .nav-btn-kinetic:hover { border-color: #0072ff; background: rgba(0,114,255,0.2); }
+        .nav-btn-kinetic span { display: block; width: 12px; height: 12px; border-top: 2px solid #fff; border-right: 2px solid #fff; }
+        .nav-btn-kinetic.prev span { transform: rotate(-135deg); }
+        .nav-btn-kinetic.next span { transform: rotate(45deg); }
+        .progress-pagination { font-family: 'Inter', sans-serif; color: rgba(255,255,255,0.7); }
+        .current-num { color: #fff; font-weight: 700; }
+
+        /* responsive */
+        @media (max-width: 1200px) {
+            .bento-grid { grid-template-columns: repeat(2,1fr); }
+            .about-section { grid-template-columns: 1fr; }
+            .footer-main-grid { grid-template-columns: 1fr 1fr; }
+        }
         @media (max-width: 768px) {
             .bento-grid { grid-template-columns: 1fr; }
-            .bento-header h2 { font-size: 2.2rem; }
-            .welcome-section h2 { font-size: 2.2rem; }
+            .offer-section { height: auto; }
         }
     </style>
 </head>
 <body>
 
+    <!-- HEADER -->
     <header id="header">
-        <div class="logo">CLEAN GLOBE</div>
-        <nav>
-            <a href="#">Services</a>
-            <a href="#">Verification</a>
-            <a href="#">Training</a>
-            <a href="#">Contact</a>
-        </nav>
-    </header>
-
-    <!-- Hero Slider -->
-    <section class="hero">
-        <div class="list">
-            <div class="item">
-                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1920">
-                <div class="content">
-                    <p class="topic">01 / GLOBAL</p>
-                    <h1 class="title">CLEAN GLOBE</h1>
-                    <p class="des">A Global Certification, Verification and Training Provider. We facilitate international excellence through rigorous quality standards.</p>
-                    <a href="#" class="btn">LEARN MORE</a>
-                </div>
+        <div class="top-bar">
+            <div class="top-left">
+                <span><span style="margin-right:5px;">&gt;</span> Welcome to Clean Globe!</span>
+                <span class="top-info"><span class="icon">📞</span> +61 881 21 41 51</span>
+                <span class="top-info"><span class="icon">✉️</span> info@cleanglobeint.com</span>
             </div>
-            <div class="item">
-                <img src="https://images.unsplash.com/photo-1594904351111-a072f80b1a71?q=80&w=1920">
-                <div class="content">
-                    <p class="topic">02 / HARVEST</p>
-                    <h1 class="title">THE 2nd LARGEST</h1>
-                    <p class="des">Organic cotton in 2018/19 increased 31% on the previous season to achieve the second-largest harvest on record.</p>
-                    <a href="#" class="btn">LEARN MORE</a>
+            <div class="top-right">
+                <div class="social-icons">
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="FB"></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png" alt="LinkedIn"></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
                 </div>
-            </div>
-            <div class="item">
-                <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1920">
-                <div class="content">
-                    <p class="topic">03 / BEYOND</p>
-                    <h1 class="title">GRS RECYCLED</h1>
-                    <p class="des">Global Recycled Standard (GRS) assures comprehensive sustainability with robust criteria on chemical compliance.</p>
-                    <a href="#" class="btn">LEARN MORE</a>
-                </div>
-            </div>
-            <div class="item">
-                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1920">
-                <div class="content">
-                    <p class="topic">04 / ENERGY</p>
-                    <h1 class="title">EMPATHY IS ENERGY</h1>
-                    <p class="des">When there is strength and inspiration, wonderful things can be achieved for the planet and future generations.</p>
-                    <a href="#" class="btn">LEARN MORE</a>
+                <div class="flags">
+                    <img src="https://flagcdn.com/w40/cn.png" alt="China">
+                    <img src="https://flagcdn.com/w40/th.png" alt="Thailand">
+                    <img src="https://flagcdn.com/w40/tr.png" alt="Turkey">
                 </div>
             </div>
         </div>
-        <div class="arrows">
-            <button id="prev">←</button>
-            <button id="next">→</button>
+        <div class="nav-row">
+            <div class="logo">CLEAN GLOBE</div>
+            <nav class="center-nav">
+                <a href="#">Services</a>
+                <a href="#">Verification</a>
+                <a href="#">Training</a>
+                <a href="#">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- KINETIC HERO -->
+    <section class="kinetic-hero-wrapper">
+        <canvas id="particle-canvas"></canvas>
+        <div class="slider-container">
+            <div class="slide"><div class="bg-grid-wrap parallax-wrap"></div><div class="slide-overlay"></div><div class="content-kinetic"><div class="kinetic-mask"><h1 class="title-kinetic">CLEAN GLOBE</h1></div><p class="desc-kinetic">A Global Certification, Verification and Training Provider. We facilitate international excellence through rigorous quality standards.</p><div class="btn-wrap"><a href="#" class="btn-kinetic">DISCOVER MORE <span class="btn-icon"><span></span><span></span></span></a></div></div></div>
+            <div class="slide"><div class="bg-grid-wrap parallax-wrap"></div><div class="slide-overlay"></div><div class="content-kinetic"><div class="kinetic-mask"><h1 class="title-kinetic">THE 2nd LARGEST</h1></div><p class="desc-kinetic">Organic cotton in 2018/19 increased 31% on the previous season to achieve the second-largest harvest on record.</p><div class="btn-wrap"><a href="#" class="btn-kinetic">DISCOVER MORE <span class="btn-icon"><span></span><span></span></span></a></div></div></div>
+            <div class="slide"><div class="bg-grid-wrap parallax-wrap"></div><div class="slide-overlay"></div><div class="content-kinetic"><div class="kinetic-mask"><h1 class="title-kinetic">GRS RECYCLED</h1></div><p class="desc-kinetic">Global Recycled Standard (GRS) assures comprehensive sustainability with robust criteria on chemical compliance.</p><div class="btn-wrap"><a href="#" class="btn-kinetic">DISCOVER MORE <span class="btn-icon"><span></span><span></span></span></a></div></div></div>
+            <div class="slide"><div class="bg-grid-wrap parallax-wrap"></div><div class="slide-overlay"></div><div class="content-kinetic"><div class="kinetic-mask"><h1 class="title-kinetic">EMPATHY IS ENERGY</h1></div><p class="desc-kinetic">When there is strength and inspiration, wonderful things can be achieved for the planet and future generations.</p><div class="btn-wrap"><a href="#" class="btn-kinetic">DISCOVER MORE <span class="btn-icon"><span></span><span></span></span></a></div></div></div>
+            <div class="controls-kinetic">
+                <button class="nav-btn-kinetic prev" id="prevBtnKinetic"><span></span></button>
+                <div class="progress-pagination"><span class="current-num" id="current-num">01</span> / <span id="total-num">04</span></div>
+                <button class="nav-btn-kinetic next" id="nextBtnKinetic"><span></span></button>
+            </div>
         </div>
     </section>
 
-    <!-- Combined White Container -->
+    <!-- REST OF SECTIONS -->
     <div class="white-bg-container">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-
-        <!-- Video Section -->
-        <section class="welcome-section">
-            <div class="container">
-                <h2>WELCOME TO <span>CLEAN GLOBE</span></h2>
-                <div class="video-wrapper">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Clean Globe Overview" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CREATIVE ABOUT US SECTION WITH BACKGROUND IMAGE -->
+        <div class="blob blob-1"></div><div class="blob blob-2"></div>
         <section class="about-section">
-            <div class="about-left">
-                <img src="https://cdn-icons-png.flaticon.com/512/3663/3663363.png" alt="License Logo" class="license-logo">
-            </div>
+            <div class="about-left"><img src="https://cdn-icons-png.flaticon.com/512/3663/3663363.png" alt="License Logo" class="license-logo"></div>
             <div class="about-right">
-                <div class="typing-container">
-                    <span id="typing-text"></span><span class="cursor">|</span>
-                </div>
+                <div class="typing-container"><span id="typing-text"></span><span class="cursor">|</span></div>
                 <h3>THE OPTIMUM PHASE OF CERTIFICATION SERVICE</h3>
-                <p>
-                    It’s a great honor for CLEAN GLOBE to be among the elite Textile Exchange members. We are licensed as a certification body for all supply chain programs including CCS, OCS, RCS, GRS, RDS-supply chain, and RAF(RWS, RMS, RAS).
-                </p>
+                <p>It’s a great honor for CLEAN GLOBE to be among the elite Textile Exchange members. We are licensed as a certification body for all supply chain programs including CCS, OCS, RCS, GRS, RDS-supply chain, and RAF(RWS, RMS, RAS).</p>
                 <a href="#" class="learn-more-btn">DISCOVER MORE</a>
             </div>
         </section>
     </div>
 
-    <!-- Bento Grid Section -->
     <section class="bento-section">
-        <div class="bento-header">
-            <h2>Why Choose <span style="color: #0072ff;">Us</span></h2>
-            <p>Over a decade of experience in the conventional certification, we learned Do’s and Don’ts, and how to create the most appropriate hassle-free service lead with integrity.</p>
-        </div>
-
+        <div class="bento-header"><h2>Why Choose <span style="color:#0072ff;">Us</span></h2><p>Over a decade of experience in the conventional certification, we learned Do’s and Don’ts, and how to create the most appropriate hassle-free service lead with integrity.</p></div>
         <div class="bento-grid">
-            <div class="bento-item image-item">
-                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800" alt="Industry Solutions">
-            </div>
-            <div class="bento-item bento-white">
-                <h4>Providing Industry<br>Solutions</h4>
-                <p>Supply chain complexity is increasing every day. We direct manufacturers and brands towards the most suitable path to achieve optimum benefits.</p>
-                <a href="#" class="bento-link">More Information</a>
-            </div>
-
-            <div class="bento-item image-item">
-                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800" alt="Linear Process">
-            </div>
-            <div class="bento-item bento-dark">
-                <h4>Linear<br>Process</h4>
-                <p>Innovative ideas are fed to our infrastructures, which helps keep the process up to date and hassle-free.</p>
-                <a href="#" class="bento-link">More Information</a>
-            </div>
-
-            <div class="bento-item bento-blue">
-                <h4>Innovative<br>Approach</h4>
-                <p>We continuously study lessons learned, eliminating unnecessary steps to ensure a smooth certification core under accreditation norms.</p>
-                <a href="#" class="bento-link">More Information</a>
-            </div>
-            <div class="bento-item image-item">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800" alt="Innovative approach">
-            </div>
-
-            <div class="bento-item bento-white">
-                <h4>Responsiveness</h4>
-                <p>We respectfully welcome your inquiries. Our commitment is to respond adequately and timely—we don’t let you remain with doubts.</p>
-                <a href="#" class="bento-link">More Information</a>
-            </div>
-            <div class="bento-item image-item">
-                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800" alt="Responsiveness">
+            <div class="bento-item image-item"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800" alt="Industry"></div>
+            <div class="bento-item bento-white"><h4>Providing Industry<br>Solutions</h4><p>Supply chain complexity is increasing every day. We direct manufacturers and brands towards the most suitable path.</p><a href="#" class="bento-link">More Information</a></div>
+            <div class="bento-item image-item"><img src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800" alt="Linear"></div>
+            <div class="bento-item bento-dark"><h4>Linear<br>Process</h4><p>Innovative ideas are fed to our infrastructures, which helps keep the process up to date and hassle-free.</p><a href="#" class="bento-link">More Information</a></div>
+            <div class="bento-item bento-blue"><h4>Innovative<br>Approach</h4><p>We continuously study lessons learned, eliminating unnecessary steps to ensure a smooth certification.</p><a href="#" class="bento-link">More Information</a></div>
+            <div class="bento-item image-item"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800" alt="Innovative"></div>
+            <div class="bento-item bento-white"><h4>Responsiveness</h4><p>We respectfully welcome your inquiries. Our commitment is to respond adequately and timely.</p><a href="#" class="bento-link">More Information</a></div>
+            <div class="bento-item image-item"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800" alt="Responsiveness"></div>
+        </div>
+    </section>
+    
+    <section class="offer-section">
+        <div class="offer-head"><h2>What we offer?</h2><p>We provide a comprehensive range of sustainability services to help your organization achieve global standards.</p></div>
+        <div class="offer-container"><img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?q=80&w=1920" class="offer-main-img" alt="Sustainability">
+            <div class="offer-cards-row">
+                <div class="offer-card"><div class="icon-box"><img src="https://cdn-icons-png.flaticon.com/512/1532/1532560.png" alt="Leaf"></div><div class="offer-card-text"><h4>Certification</h4><p>Clean Globe provides accredited, globally recognized certification under standards of Textile Exchange.</p></div></div>
+                <div class="offer-card"><div class="icon-box"><img src="https://cdn-icons-png.flaticon.com/512/3502/3502688.png" alt="Check"></div><div class="offer-card-text"><h4>Verification</h4><p>Third and second-party verifications and tailor-made programs based on code of conduct.</p></div></div>
+                <div class="offer-card"><div class="icon-box"><img src="https://cdn-icons-png.flaticon.com/512/3233/3233483.png" alt="Training"></div><div class="offer-card-text"><h4>Training</h4><p>Common training on Textile Exchange programs and Global Organic Textile Standard.</p></div></div>
             </div>
         </div>
     </section>
 
+    <!--<section class="certifications-section">
+        <div class="cert-label"><hr><img src="https://cdn-icons-png.flaticon.com/512/188/188333.png" width="18" alt="leaf"> CERTIFICATIONS <hr></div>
+        <h2>Trusted Certifications. Responsible Future.</h2>
+        <p class="sub-text">We provide a complete range of supply chain certifications of Textile Exchange programs across multiple scopes—driving transparency, sustainability, and trust.</p>
+        <div class="cert-tabs-wrapper">
+            <button class="nav-arrow">❮</button>
+            <div class="tab-btn active">RECYCLED PRODUCTS</div>
+            <div class="tab-btn">ORGANIC PRODUCTS</div>
+            <div class="tab-btn">ANIMAL FIBERS</div>
+            <div class="tab-btn">SPECIFIC CLAIMS</div>
+            <button class="nav-arrow">❯</button>
+        </div>
+        <div class="cert-main-card">
+            <div class="cert-column"><div class="cert-item-content"><div class="logo-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Recycled_Claim_Standard_logo.png" alt="RCS"></div><div class="scope-box"><h4>PRODUCT SCOPES</h4><div class="scope-item"><div class="scope-icon">📦</div>Textile, Apparel</div><div class="scope-item"><div class="scope-icon">👟</div>Footwear / Leather</div><div class="scope-item"><div class="scope-icon">🧴</div>Polymer/ Plastic</div><div class="scope-item"><div class="scope-icon">🔩</div>Metal Products</div><div class="scope-item"><div class="scope-icon">📄</div>Paper Products</div></div></div></div>
+            <div class="vertical-divider"></div>
+            <div class="cert-column"><div class="cert-item-content"><div class="logo-circle"><img src="https://www.iso-9001.it/wp-content/uploads/2021/04/Global-Recycled-Standard-Logo.png" alt="GRS"></div><div class="scope-box"><h4>PRODUCT SCOPES</h4><div class="scope-item"><div class="scope-icon">📦</div>Textile, Apparel</div><div class="scope-item"><div class="scope-icon">👟</div>Footwear / Leather</div><div class="scope-item"><div class="scope-icon">🧴</div>Polymer/ Plastic</div><div class="scope-item"><div class="scope-icon">🔩</div>Metal Products</div><div class="scope-item"><div class="scope-icon">📄</div>Paper Products</div></div></div></div>
+        </div>
+    </section>-->
+
+    <!-- CTA (CENTERED, SHORTER) -->
+    <!--<section class="cta-wrapper">
+        <div class="unique-cta-card">
+            <div class="cta-visual-blobs"></div>
+            <div class="cta-text-side">
+                <span class="cta-tag">TRANSACTION CERTIFICATION (TC)</span>
+                <h2>No more <span>desperation!</span></h2>
+                <p class="cta-description">Our requirements are precise and legitimate. Our process is lean and mean. With your right data, we deliver excellence without the stress.</p>
+                <div class="cta-benefits-list">
+                    <div class="benefit-item"><strong>TIME</strong><span>Optimized</span></div>
+                    <div class="benefit-item"><strong>COMMITMENT</strong><span>Guaranteed</span></div>
+                    <div class="benefit-item"><strong>JUBILANCE</strong><span>Customer Joy</span></div>
+                </div>
+                <div class="cta-actions"><a href="#" class="btn-apply">APPLY NOW</a><a href="#" class="btn-learn-link">Learn more about our process</a></div>
+            </div>
+        </div>
+    </section>-->
+
+    <!-- FOOTER BLACK + BLUE GRADIENT -->
+    <!--<footer class="modern-footer">
+        <div class="footer-island">
+            <div class="footer-main-grid">
+                <div class="footer-brand">
+                    <div class="logo" style="color:#fff;">CLEAN GLOBE</div>
+                    <p>A global certification, verification, and training provider headquartered in Melbourne, Australia.</p>
+                    <div class="newsletter-pill"><input type="email" placeholder="Sign up for updates"><button>Submit</button></div>
+                </div>
+                <div class="footer-col"><h4>Useful Links</h4><ul class="footer-links-list"><li><a href="#">Textile Exchange</a></li><li><a href="#">Responsible Wool</a></li><li><a href="#">Responsible Down</a></li><li><a href="#">GOTS Standard</a></li><li><a href="#">Road Map-to-Zero</a></li><li><a href="#">Vacancies</a></li></ul></div>
+                <div class="footer-col"><h4>News Updates</h4><div class="news-card"><span class="date">JUNE 17, 2021</span><a href="#">CLEAN GLOBE is glad to announce being a MEMBER of TEXTILE EXCHANGE</a></div><div class="news-card"><span class="date">OCTOBER 16, 2020</span><a href="#">Australian wool 'jeopardized by mulesing' claim</a></div></div>
+                <div class="footer-col"><h4>Support</h4><ul class="footer-links-list"><li><a href="#">Contact Us</a></li><li><a href="#">Help Center</a></li><li><a href="#">FAQ's</a></li><li><a href="#">Global Offices</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><p>© 2025 Clean Globe International. ABN 28 641 196 723. All rights reserved.</p><div class="legal-links"><a href="#">Terms & Conditions</a><a href="#">Privacy Policy</a></div></div>
+        </div>
+    </footer>-->
+
     <script>
-        const nextBtn = document.querySelector('#next');
-        const prevBtn = document.querySelector('#prev');
-        const hero = document.querySelector('.hero');
-        const list = document.querySelector('.list');
-        const header = document.querySelector('#header');
-
-        let isAnimating = false;
-
-        function moveSlider(direction) {
-            if (isAnimating) return;
-            isAnimating = true;
-            const items = document.querySelectorAll('.item');
-            if (direction === 'next') {
-                hero.classList.add('next');
-                setTimeout(() => {
-                    list.appendChild(items[0]);
-                    hero.classList.remove('next');
-                    isAnimating = false;
-                }, 800); 
-            } else {
-                list.prepend(items[items.length - 1]);
-                isAnimating = false;
+        (function(){
+            // Header scroll + typing
+            const header = document.querySelector('#header');
+            window.onscroll = function() {
+                const heroHeight = document.querySelector('.kinetic-hero-wrapper').offsetHeight;
+                if (window.scrollY > 100) header.classList.add('scrolled');
+                else header.classList.remove('scrolled');
+                if (window.scrollY > (heroHeight - 100)) header.classList.add('hide-top-bar');
+                else header.classList.remove('hide-top-bar');
+            };
+            const textToType = "CLEAN GLOBE: A PROUD MEMBER OF TEXTILE EXCHANGE.";
+            const typingSpan = document.getElementById('typing-text');
+            let index = 0;
+            function type() {
+                if (index < textToType.length) { typingSpan.textContent += textToType.charAt(index); index++; setTimeout(type, 80); }
+                else { setTimeout(() => { typingSpan.textContent = ""; index = 0; type(); }, 4000); }
             }
-        }
+            // ===== INTRO + FIRST SLIDE FIX =====
+window.addEventListener("DOMContentLoaded", () => {
 
-        nextBtn.onclick = () => moveSlider('next');
-        prevBtn.onclick = () => moveSlider('prev');
+    // start typing
+    type();
 
-        window.onscroll = function() {
-            if (window.scrollY > 100) header.classList.add('scrolled');
-            else header.classList.remove('scrolled');
-        };
+    // loader
+    const loader = document.getElementById("intro-loader");
 
-        const textToType = "CLEAN GLOBE: A PROUD MEMBER OF TEXTILE EXCHANGE.";
-        const typingSpan = document.getElementById('typing-text');
-        let index = 0;
+    if (loader) {
+        setTimeout(() => {
+            loader.classList.add("hide");
 
-        function type() {
-            if (index < textToType.length) {
-                typingSpan.textContent += textToType.charAt(index);
-                index++;
-                setTimeout(type, 80);
-            } else {
-                setTimeout(() => {
-                    typingSpan.textContent = "";
-                    index = 0;
-                    type();
-                }, 4000);
+            setTimeout(() => loader.remove(), 700);
+        }, 1000);
+
+        // safety
+        setTimeout(() => {
+            if (loader) loader.remove();
+        }, 4000);
+    }
+
+    // ===== FORCE FIRST SLIDE ANIMATION =====
+    setTimeout(() => {
+        const slides = document.querySelectorAll('.slide');
+
+        slides.forEach(s => s.classList.remove('active'));
+        slides[0].classList.add('active');
+
+    }, 1200);
+
+});
+
+            // Tabs
+            document.querySelectorAll('.tab-btn').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Kinetic slider
+            const gridWraps = document.querySelectorAll('.bg-grid-wrap');
+            const rows=4, cols=6, total=rows*cols;
+            gridWraps.forEach(wrap => {
+                for(let i=0; i<total; i++) {
+                    const tile = document.createElement('div'); tile.className='grid-tile';
+                    tile.style.setProperty('--delay', i); tile.style.setProperty('--reverse-delay', total-i);
+                    const inner = document.createElement('div'); inner.className='grid-tile-inner';
+                    const row = Math.floor(i/cols), col = i%cols;
+                    inner.style.width = `${cols*100}%`; inner.style.height = `${rows*100}%`;
+                    inner.style.left = `${-col*100}%`; inner.style.top = `${-row*100}%`;
+                    tile.appendChild(inner); wrap.appendChild(tile);
+                }
+            });
+            // Particles
+            const canvas = document.getElementById('particle-canvas'), ctx = canvas.getContext('2d');
+            let particles = [];
+            class Particle {
+                constructor(isBurst=false) { this.isBurst=isBurst; this.reset(isBurst); }
+                reset(isBurst) {
+                    if(isBurst){ this.x=canvas.width/2; this.y=canvas.height/2; const a=Math.random()*Math.PI*2; this.vx=Math.cos(a)*(2+Math.random()*8); this.vy=Math.sin(a)*(2+Math.random()*8); this.life=60+Math.random()*40; }
+                    else { this.x=Math.random()*canvas.width; this.y=-20; this.vx=-1+Math.random()*2; this.vy=0.5+Math.random()*2; this.life=200+Math.random()*100; }
+                    this.size=2+Math.random()*5; this.opacity=0; this.color=['#b5d8ff','#ffffff','#a0c8ff'][Math.floor(Math.random()*3)];
+                }
+                update() {
+                    this.x+=this.vx; this.y+=this.vy; this.life--;
+                    if(this.life>180 && !this.isBurst) this.opacity=Math.min(0.3,this.opacity+0.01);
+                    else if(this.isBurst && this.life>50) this.opacity=Math.min(0.6,this.opacity+0.05);
+                    else if(this.life<30) this.opacity=Math.max(0,this.opacity-0.02);
+                    if(this.life<=0||this.y>canvas.height+20) { if(!this.isBurst) this.reset(false); else { let i=particles.indexOf(this); if(i>-1) particles.splice(i,1); } }
+                }
+                draw(){ if(this.opacity<=0)return; ctx.save(); ctx.translate(this.x,this.y); ctx.globalAlpha=this.opacity; ctx.fillStyle=this.color; ctx.beginPath(); ctx.arc(0,0,this.size,0,Math.PI*2); ctx.fill(); ctx.restore(); }
             }
-        }
-
-        window.onload = type;
-
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('.item:nth-child(2)')) moveSlider('next');
-        });
+            function resizeCanvas(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+            window.addEventListener('resize',resizeCanvas); resizeCanvas();
+            for(let i=0;i<20;i++) particles.push(new Particle(false));
+            function animate(){ ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update(); p.draw();}); requestAnimationFrame(animate); } animate();
+            function particleBurst(){ for(let i=0;i<30;i++) particles.push(new Particle(true)); }
+            // Slider
+            const slides = document.querySelectorAll('.slide'), currentNumEl=document.getElementById('current-num'), prev=document.getElementById('prevBtnKinetic'), next=document.getElementById('nextBtnKinetic');
+            let currentSlide=0, isAnimating=false;
+            function changeSlide(dir){
+                if(isAnimating) return; isAnimating=true; particleBurst();
+                slides[currentSlide].classList.remove('active');
+                currentSlide = dir==='next' ? (currentSlide+1)%slides.length : (currentSlide-1+slides.length)%slides.length;
+                slides[currentSlide].classList.add('active');
+                currentNumEl.innerText = `0${currentSlide+1}`;
+                setTimeout(()=>{ isAnimating=false; },1200);
+            }
+            next.addEventListener('click',()=>changeSlide('next')); prev.addEventListener('click',()=>changeSlide('prev'));
+            // Parallax
+            document.querySelectorAll('.parallax-wrap').forEach(w=>{ window.addEventListener('mousemove',e=>{ let x=(e.clientX/window.innerWidth-0.5)*20, y=(e.clientY/window.innerHeight-0.5)*20; w.style.transform=`translate(${-x}px,${-y}px)`; }); });
+        })();
     </script>
 </body>
 </html>
