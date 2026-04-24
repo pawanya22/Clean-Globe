@@ -192,12 +192,12 @@
         }
 
         .logo img {
-            height: 45px;
+            height: 60px;
             width: auto;
             object-fit: contain;
         }
         header.scrolled .logo img {
-            height: 35px;
+            height: 60px;
         }
         .footer-brand .logo img {
             height: 55px;
@@ -456,6 +456,7 @@
             letter-spacing: 1px;
             background: linear-gradient(90deg, #ffffff, #0072ff);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .about-section:hover .main-image {
@@ -949,22 +950,29 @@
             border-style: dashed;
         }
         .logo-circle {
-            width: 260px;
-            height: 260px;
-            min-width: 260px;
-            background: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
-            padding: 45px;
-            border: 8px solid rgba(255, 255, 255, 0.8);
-        }
-        .logo-circle img {
-            width: 100%;
-            object-fit: contain;
-        }
+    width: 220px;   /* slightly bigger */
+    height: 220px;
+    min-width: 220px;
+
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+    border: 8px solid rgba(255, 255, 255, 0.8);
+
+    padding: 0;            /* 🔥 important remove padding */
+    overflow: hidden;      /* 🔥 ensures perfect circle crop */
+}
+
+.logo-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;     /* 🔥 fills circle nicely */
+    transform: scale(1.08); /* slight luxury zoom */
+}
         .scope-box h4 {
             color: #0072ff;
             font-size: 13px;
@@ -1885,7 +1893,7 @@
 
         <!-- CERTIFICATIONS SECTION -->
         <section class="certifications-section">
-            <h2>CERTIFICSTES</h2>
+            <h2>CERTIFICATION</h2>
             <p class="sub-text">We provide a complete range of supply chain certifications of Textile Exchange programs across multiple scopes—driving transparency, sustainability, and trust.</p>
             <div class="cert-tabs-wrapper">
                 <button class="nav-arrow">❮</button>
@@ -2022,20 +2030,18 @@
                 "RECYCLED PRODUCTS": `
                     <div class="cert-column"><div class="cert-item-content"><div class="logo-circle"><img src="rcs-100.jpg" alt="RCS"></div><div class="scope-box"><h4>PRODUCT SCOPES</h4><div class="scope-item"><div class="scope-icon">📦</div>Textile, Apparel</div><div class="scope-item"><div class="scope-icon">👟</div>Footwear / Leather</div><div class="scope-item"><div class="scope-icon">🧴</div>Polymer/ Plastic</div><div class="scope-item"><div class="scope-icon">🔩</div>Metal Products</div><div class="scope-item"><div class="scope-icon">📄</div>Paper Products</div></div></div></div>
                     <div class="vertical-divider"></div>
-                    <div class="cert-column"><div class="cert-item-content"><div class="logo-circle"><img src="https://www.iso-9001.it/wp-content/uploads/2021/04/Global-Recycled-Standard-Logo.png" alt="GRS"></div><div class="scope-box"><h4>PRODUCT SCOPES</h4><div class="scope-item"><div class="scope-icon">📦</div>Textile, Apparel</div><div class="scope-item"><div class="scope-icon">👟</div>Footwear / Leather</div><div class="scope-item"><div class="scope-icon">🧴</div>Polymer/ Plastic</div><div class="scope-item"><div class="scope-icon">🔩</div>Metal Products</div><div class="scope-item"><div class="scope-icon">📄</div>Paper Products</div></div></div></div>`,
+                    <div class="cert-column"><div class="cert-item-content"><div class="logo-circle"><img src="brs.jpg" alt="GRS"></div><div class="scope-box"><h4>PRODUCT SCOPES</h4><div class="scope-item"><div class="scope-icon">📦</div>Textile, Apparel</div><div class="scope-item"><div class="scope-icon">👟</div>Footwear / Leather</div><div class="scope-item"><div class="scope-icon">🧴</div>Polymer/ Plastic</div><div class="scope-item"><div class="scope-icon">🔩</div>Metal Products</div><div class="scope-item"><div class="scope-icon">📄</div>Paper Products</div></div></div></div>`,
 
                 "ORGANIC PRODUCTS": `
-                    <div class="cert-column"><div class="cert-item-content"><div class="logo-circle"><img src="https://textileexchange.org/wp-content/uploads/2020/10/OCS-Logo-1.png" alt="OCS"></div><div class="scope-box"><h4>PRODUCT SCOPES</h4><div class="scope-item"><div class="scope-icon">👕</div>Textile, Apparel</div><div class="scope-item"><div class="scope-icon">🛏️</div>Home Textile / Bedding</div><div class="scope-item"><div class="scope-icon">👟</div>Footwear</div><div class="scope-item"><div class="scope-icon">🧸</div>Toys</div><div class="scope-item"><div class="scope-icon">🧴</div>Cosmetic</div></div></div></div>
-                    <div class="vertical-divider"></div>
-                    <div class="cert-column" style="display:flex; align-items:center; justify-content:center; opacity:0.5; font-style:italic;">More Organic Standards coming soon...</div>`,
+                    <div class="cert-column"><div class="cert-item-content"><div class="logo-circle"><img src="ocs.jpg" alt="OCS"></div><div class="scope-box"><h4>PRODUCT SCOPES</h4><div class="scope-item"><div class="scope-icon">👕</div>Textile, Apparel</div><div class="scope-item"><div class="scope-icon">🛏️</div>Home Textile / Bedding</div><div class="scope-item"><div class="scope-icon">👟</div>Footwear</div><div class="scope-item"><div class="scope-icon">🧸</div>Toys</div><div class="scope-item"><div class="scope-icon">🧴</div>Cosmetic</div></div></div></div>`,
 
                 "ANIMAL FIBERS": `
-                    <div class="cert-column"><div class="cert-item-content"><div class="logo-circle"><img src="https://textileexchange.org/wp-content/uploads/2020/11/RWS-Logo-1.png" alt="RWS"></div><div class="scope-box"><h4>PRODUCT SCOPES</h4><div class="scope-item"><div class="scope-icon">🧶</div>Fiber</div><div class="scope-item"><div class="scope-icon">🧥</div>Apparel</div><div class="scope-item"><div class="scope-icon">🛏️</div>Bedding</div><div class="scope-item"><div class="scope-icon">🧸</div>Toys</div></div></div></div>
+                    <div class="cert-column"><div class="cert-item-content"><div class="logo-circle"><img src="rds.jpg" alt="RWS"></div><div class="scope-box"><h4>PRODUCT SCOPES</h4><div class="scope-item"><div class="scope-icon">🧶</div>Fiber</div><div class="scope-item"><div class="scope-icon">🧥</div>Apparel</div><div class="scope-item"><div class="scope-icon">🛏️</div>Bedding</div><div class="scope-item"><div class="scope-icon">🧸</div>Toys</div></div></div></div>
                     <div class="vertical-divider"></div>
-                    <div class="cert-column"><div class="cert-item-content"><div class="logo-circle"><img src="https://textileexchange.org/wp-content/uploads/2020/11/RMS-Logo-1.png" alt="RMS"></div><div class="scope-box"><h4>RMS / RAS</h4><p style="font-size:12px; color:#666;">Responsible Mohair & Alpaca Standards providing verification at the farm level.</p></div></div></div>`,
+                    <div class="cert-column"><div class="cert-item-content"><div class="logo-circle"><img src="ras.jpg" alt="RMS"></div><div class="scope-box"><h4>RMS / RAS</h4><p style="font-size:12px; color:#666;">Responsible Mohair & Alpaca Standards providing verification at the farm level.</p></div></div></div>`,
 
                 "SPECIFIC CLAIMS": `
-                    <div class="cert-column" style="flex:2;"><div class="cert-item-content"><div class="logo-circle"><img src="https://textileexchange.org/wp-content/uploads/2020/11/CCS-Logo-1.png" alt="CCS"></div><div class="scope-box"><h4>CONTENT CLAIM STANDARD (CCS)</h4><p style="font-size:13px; margin-bottom:15px; color:#444;">CCS is the core standard of all Textile Exchange's supply chain programs. All supply chain operators follow CCS.</p><div class="scope-item"><div class="scope-icon">✅</div>Used for: OCS, RCS, GRS, RDS, RWS</div><div class="scope-item"><div class="scope-icon">📦</div>Scopes: Any specific material</div><a href="#" style="color:#0072ff; font-size:12px; font-weight:700;">READ MORE...</a></div></div></div>`
+                    <div class="cert-column" style="flex:2;"><div class="cert-item-content"><div class="logo-circle"><img src="ccs.jpg" alt="CCS"></div><div class="scope-box"><h4>CONTENT CLAIM STANDARD (CCS)</h4><p style="font-size:13px; margin-bottom:15px; color:#444;">CCS is the core standard of all Textile Exchange's supply chain programs. All supply chain operators follow CCS.</p><div class="scope-item"><div class="scope-icon">✅</div>Used for: OCS, RCS, GRS, RDS, RWS</div><div class="scope-item"><div class="scope-icon">📦</div>Scopes: Any specific material</div><a href="#" style="color:#0072ff; font-size:12px; font-weight:700;">READ MORE...</a></div></div></div>`
             };
 
             const displayContainer = document.getElementById('cert-display-container');
